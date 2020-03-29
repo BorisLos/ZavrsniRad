@@ -14,6 +14,7 @@ public class ObradaKolo extends ObradaPrisutnost{
     public ObradaKolo() {
 
 
+        
 
     }
     
