@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author LasovicaPC
  */
-public class ObradaPrisutnost extends ObradaClan<Prisutnost>{
+public class ObradaPrisutnost extends Obrada<Prisutnost>{
 
     public ObradaPrisutnost(Prisutnost entitet) {
         super(entitet);

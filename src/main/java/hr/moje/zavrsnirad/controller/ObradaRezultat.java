@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hr.moje.zavrsnirad.controller;
 
 import hr.moje.zavrsnirad.model.Rezultat;
@@ -13,7 +14,8 @@ import java.util.List;
  *
  * @author LasovicaPC
  */
-public class ObradaRezultat extends ObradaClan<Rezultat>{
+
+public class ObradaRezultat extends Obrada<Rezultat>{
 
     public ObradaRezultat(Rezultat entitet) {
         super(entitet);

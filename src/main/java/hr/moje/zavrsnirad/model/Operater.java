@@ -12,11 +12,9 @@ import javax.persistence.Table;
  *
  * @author LasovicaPC
  */
-
 @Entity
 @Table(name = "operater")
-
-public class Operater extends Clan{
+public class Operater extends Osoba{
      
     private String lozinka;
 
@@ -27,7 +25,5 @@ public class Operater extends Clan{
     public void setLozinka(String lozinka) {
         this.lozinka = lozinka;
     }
-    
-    
-    
+
 }

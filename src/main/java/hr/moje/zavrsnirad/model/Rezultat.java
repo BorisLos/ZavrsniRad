@@ -7,6 +7,7 @@ package hr.moje.zavrsnirad.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,17 +17,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "rezultat")
-public class Rezultat extends Clan{
+public class Rezultat extends Entitet{
     
     
     @Column(name="vrijeme")
     private String vrijeme;
+ 
+    @ManyToOne
+    private Duzina duzina;
+
+    @ManyToOne
+    private Kolo kolo;
     
-    @Column(name="duzina")
-    private String duzina;
-    
-    @Column(name="kolo")
-    private String kolo;
+
+    @ManyToOne
+    private Clan clan;
 
     public String getVrijeme() {
         return vrijeme;
@@ -36,21 +41,31 @@ public class Rezultat extends Clan{
         this.vrijeme = vrijeme;
     }
 
-    public String getDuzina() {
+    public Duzina getDuzina() {
         return duzina;
     }
 
-    public void setDuzina(String duzina) {
+    public void setDuzina(Duzina duzina) {
         this.duzina = duzina;
     }
 
-    public String getKolo() {
+    public Kolo getKolo() {
         return kolo;
     }
 
-    public void setKolo(String kolo) {
+    public void setKolo(Kolo kolo) {
         this.kolo = kolo;
     }
+
+    public Clan getClan() {
+        return clan;
+    }
+
+    public void setClan(Clan clan) {
+        this.clan = clan;
+    }
+
     
+
     
 }

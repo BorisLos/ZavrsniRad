@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
 package hr.moje.zavrsnirad.controller;
 
 import hr.moje.zavrsnirad.model.Kategorija;
@@ -13,6 +15,8 @@ import java.util.List;
  *
  * @author LasovicaPC
  */
+
+/**
 public class ObradaKategorija extends ObradaClan<Kategorija>{
 
     public ObradaKategorija(Kategorija entitet) {
@@ -49,3 +53,4 @@ public class ObradaKategorija extends ObradaClan<Kategorija>{
         }
     
 }
+*/

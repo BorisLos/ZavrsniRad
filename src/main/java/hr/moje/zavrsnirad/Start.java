@@ -5,16 +5,22 @@
  */
 package hr.moje.zavrsnirad;
 
+import hr.moje.zavrsnirad.view.SplashScreen;
+
 /**
  *
  * @author LasovicaPC
  */
 public class Start {
     
-    public Start (){
+    /**
+     *
+     */
+    public Start(){
         
+       // Pomocno.pocetniInsert();
         
-        
+        new SplashScreen().setVisible(true);
     }
     
     public static void main(String[] args) {

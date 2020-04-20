@@ -6,6 +6,7 @@
 package hr.moje.zavrsnirad.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,19 +17,30 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "prisutnost")
-
-public class Prisutnost extends Clan{
+public class Prisutnost extends Entitet{
     
-    private String kolo;
+    @ManyToOne
+    private Kolo kolo;
+    @ManyToOne
+    private Clan clan;
 
-    public String getKolo() {
+    public Kolo getKolo() {
         return kolo;
     }
 
-    public void setKolo(String kolo) {
+    public void setKolo(Kolo kolo) {
         this.kolo = kolo;
     }
+
+    public Clan getClan() {
+        return clan;
+    }
+
+    public void setClan(Clan clan) {
+        this.clan = clan;
+    }
+
     
-    
+
     
 }

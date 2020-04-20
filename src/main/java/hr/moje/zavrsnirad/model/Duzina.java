@@ -15,8 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "duzina")
-
-public class Duzina extends Rezultat{
+public class Duzina extends Entitet{
     
     private String nazivDuzina;
 

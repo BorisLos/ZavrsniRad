@@ -15,9 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "kolo")
-
-
-public class Kolo extends Prisutnost{
+public class Kolo extends Entitet{
     private String datum;
 
     public String getDatum() {

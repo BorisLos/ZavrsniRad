@@ -7,14 +7,16 @@ package hr.moje.zavrsnirad.controller;
 
 import hr.moje.zavrsnirad.model.Clan;
 import hr.moje.zavrsnirad.util.ZRadException;
+import java.util.List;
 
 /**
  *
  * @author LasovicaPC
  */
-public abstract class ObradaClan<T extends Clan> extends Obrada<T>{
+public class ObradaClan extends ObradaOsoba<Clan>{
 
-    public ObradaClan(T entitet) {
+
+    public ObradaClan(Clan entitet) {
         super(entitet);
     }
 
@@ -39,8 +41,18 @@ public abstract class ObradaClan<T extends Clan> extends Obrada<T>{
     protected void kontrolaDelete() throws ZRadException{
         
     }
+
+    @Override
+    public List<Clan> getPodaci() {
+        return session.createQuery("from Clan").list();
+    }
+
+    @Override
+    protected void nakonSpremanja() throws ZRadException {
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    
+
     
     
 }

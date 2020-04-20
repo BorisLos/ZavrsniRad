@@ -5,37 +5,41 @@
  */
 package hr.moje.zavrsnirad.model;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author LasovicaPC
  */
 
-@MappedSuperclass
-public abstract class Clan extends Entitet{
+@Entity
+@Table(name = "clan")
+public class Clan extends Osoba{
     
-    private String ime;
-    private String prezime;
-    private String spol;
-    private String datum_rodjenja;
-    private String email;
+    //private String ime;
+    //private String prezime;
+    //private String spol;
+    //private String datum_rodjenja;
+    //private String email;
     private String ulica;
     private String kucni_broj;
     private String grad;
     private String drzava;
-    private Kategorija kategorija;
-
+    //private Kategorija kategorija;
+    
+    
+    /**
     public Kategorija getKategorija() {
         return kategorija;
     }
-
+    
     public void setKategorija(Kategorija kategorija) {
         this.kategorija = kategorija;
     }
-
     
-    
+*/
+    /*
     public String getIme() {
         return ime;
     }
@@ -51,7 +55,7 @@ public abstract class Clan extends Entitet{
     public void setPrezime(String prezime) {
         this.prezime = prezime;
     }
-
+/*
     public String getSpol() {
         return spol;
     }
@@ -60,6 +64,7 @@ public abstract class Clan extends Entitet{
         this.spol = spol;
     }
 
+    /*
     public String getDatum_rodjenja() {
         return datum_rodjenja;
     }
@@ -67,7 +72,9 @@ public abstract class Clan extends Entitet{
     public void setDatum_rodjenja(String datum_rodjenja) {
         this.datum_rodjenja = datum_rodjenja;
     }
+    */
 
+/*
     public String getEmail() {
         return email;
     }
@@ -75,7 +82,7 @@ public abstract class Clan extends Entitet{
     public void setEmail(String email) {
         this.email = email;
     }
-
+*/
     public String getUlica() {
         return ulica;
     }
