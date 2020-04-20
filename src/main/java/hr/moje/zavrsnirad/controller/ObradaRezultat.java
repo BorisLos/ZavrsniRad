@@ -49,8 +49,7 @@ public class ObradaRezultat extends Obrada<Rezultat>{
 
     @Override
     public List<Rezultat> getPodaci() {
-        return null;
-        
+        return session.createQuery("from rezultat").list();
     }
     
 }

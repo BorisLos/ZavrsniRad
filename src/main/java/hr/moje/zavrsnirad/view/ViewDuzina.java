@@ -26,12 +26,18 @@ public class ViewDuzina extends javax.swing.JFrame {
     public ViewDuzina() {
         initComponents();
         obrada = new ObradaDuzina();
+        ucitaj();
         //postInitComponents();
     }
 
     private void ucitaj() {
         DefaultListModel<Duzina> m = new DefaultListModel<>();
-        obrada.getPodaci().forEach(s -> m.addElement(s));
+        
+        for(Duzina d: obrada.getPodaci()) {
+            System.out.println("Izvukao sam: " + d.getNazivDuzina());
+            m.addElement(d);
+        }
+        //obrada.getPodaci().forEach(s -> m.addElement(s));
         lstPodaci.setModel(m);
     }
     
@@ -129,7 +135,7 @@ public class ViewDuzina extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> lstPodaci;
+    private javax.swing.JList<Duzina> lstPodaci;
     private javax.swing.JTextField txtNaziv;
     // End of variables declaration//GEN-END:variables
 

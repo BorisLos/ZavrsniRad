@@ -28,5 +28,8 @@ public class Duzina extends Entitet{
     }
     
     
-    
+    @Override
+    public String toString() {
+        return this.getNazivDuzina();
+    }
 }

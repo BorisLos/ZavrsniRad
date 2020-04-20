@@ -5,16 +5,18 @@
  */
 package hr.moje.zavrsnirad.controller;
 
+import hr.moje.zavrsnirad.model.Duzina;
 import hr.moje.zavrsnirad.model.Rezultat;
 import hr.moje.zavrsnirad.util.ZRadException;
+import java.util.List;
 
 /**
  *
  * @author LasovicaPC
  */
-public class ObradaDuzina extends ObradaRezultat{
+public class ObradaDuzina extends Obrada<Duzina> {
 
-    public ObradaDuzina(Rezultat entitet) {
+    public ObradaDuzina(Duzina entitet) {
         super(entitet);
     }
 
@@ -22,7 +24,7 @@ public class ObradaDuzina extends ObradaRezultat{
         super();
     }
     
-        @Override
+    @Override
     protected void kontrolaCreate() throws ZRadException {
       
     }
@@ -41,5 +43,10 @@ public class ObradaDuzina extends ObradaRezultat{
     protected void nakonSpremanja() throws ZRadException {
        
     }   
+
+    @Override
+    public List<Duzina> getPodaci() {
+        return session.createQuery("from Duzina").list();
+    }
     
 }
