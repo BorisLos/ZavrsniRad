@@ -5,58 +5,19 @@
  */
 package hr.moje.zavrsnirad.view;
 
-import hr.moje.zavrsnirad.controller.ObradaDuzina;
-import hr.moje.zavrsnirad.model.Clan;
-import hr.moje.zavrsnirad.model.Duzina;
-import hr.moje.zavrsnirad.util.ZRadException;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author LasovicaPC
  */
-public class ViewDuzina extends javax.swing.JFrame {
-    
-    private final ObradaDuzina obrada;
-    
-    
+public class ViewKolo extends javax.swing.JFrame {
 
     /**
-     * Creates new form ViewDuzina
+     * Creates new form ViewKolo
      */
-    public ViewDuzina() {
+    public ViewKolo() {
         initComponents();
-        obrada = new ObradaDuzina();
-        ucitaj();
-        //postInitComponents();
     }
 
-    private void ucitaj() {
-        DefaultListModel<Duzina> m = new DefaultListModel<>();
-        
-        obrada.getPodaci().forEach(s -> m.addElement(s));
-        
-        lstPodaci.setModel(m);
-    }
-    
-    
-    private void ucitajVrijednosti(){
-        obrada.getEntitet().setNazivDuzina(txtNaziv.getText());
-    }
-    
-    private void postaviVrijednosti(){
-        txtNaziv.setText(obrada.getEntitet().getNazivDuzina());
-    }
-    
-    
-    
-    /*private void postInitComponents() {
-        setTitle("Duzina - " + Pomocno.LOGIRAN.getPrezime());
-        ucitaj();
-    }
-    */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,15 +27,22 @@ public class ViewDuzina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnIzbrisi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstPodaci = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         txtNaziv = new javax.swing.JTextField();
         btnDodaj = new javax.swing.JButton();
         btnPromjeni = new javax.swing.JButton();
-        btnIzbrisi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        btnIzbrisi.setText("Izbrisi");
+        btnIzbrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzbrisiActionPerformed(evt);
+            }
+        });
 
         lstPodaci.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -96,13 +64,6 @@ public class ViewDuzina extends javax.swing.JFrame {
         btnPromjeni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPromjeniActionPerformed(evt);
-            }
-        });
-
-        btnIzbrisi.setText("Izbrisi");
-        btnIzbrisi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIzbrisiActionPerformed(evt);
             }
         });
 
@@ -146,6 +107,30 @@ public class ViewDuzina extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnIzbrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzbrisiActionPerformed
+        if (obrada.getEntitet() == null) {
+            JOptionPane.showMessageDialog(null, "Prvo odaberite stavku");
+            return;
+        }
+        try {
+            obrada.delete();
+            ucitaj();
+        } catch (ZRadException e) {
+            JOptionPane.showMessageDialog(null, e.getPoruka());
+        }
+    }//GEN-LAST:event_btnIzbrisiActionPerformed
+
+    private void lstPodaciValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstPodaciValueChanged
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
+        obrada.setEntitet(lstPodaci.getSelectedValue());
+        if (obrada.getEntitet() == null) {
+            return;
+        }
+        postaviVrijednosti();
+    }//GEN-LAST:event_lstPodaciValueChanged
+
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         try {
             obrada.setEntitet(new Duzina());
@@ -171,40 +156,46 @@ public class ViewDuzina extends javax.swing.JFrame {
             ucitaj();
         } catch (ZRadException e) {
             JOptionPane.showMessageDialog(null, e.getPoruka());
-        } 
+        }
         catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
     }//GEN-LAST:event_btnPromjeniActionPerformed
-
-    private void btnIzbrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzbrisiActionPerformed
-        if (obrada.getEntitet() == null) {
-            JOptionPane.showMessageDialog(null, "Prvo odaberite stavku");
-            return;
-        }
-        try {
-            obrada.delete();
-            ucitaj();
-        } catch (ZRadException e) {
-            JOptionPane.showMessageDialog(null, e.getPoruka());
-        }
-    }//GEN-LAST:event_btnIzbrisiActionPerformed
-
-    private void lstPodaciValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstPodaciValueChanged
-       if (evt.getValueIsAdjusting()) {
-            return;
-        }
-        obrada.setEntitet(lstPodaci.getSelectedValue());
-        if (obrada.getEntitet() == null) {
-            return;
-        }
-        postaviVrijednosti();
-    }//GEN-LAST:event_lstPodaciValueChanged
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ViewKolo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ViewKolo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ViewKolo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ViewKolo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ViewKolo().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
@@ -215,10 +206,4 @@ public class ViewDuzina extends javax.swing.JFrame {
     private javax.swing.JList<Duzina> lstPodaci;
     private javax.swing.JTextField txtNaziv;
     // End of variables declaration//GEN-END:variables
-
-    private void postInitComponents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
 }
