@@ -239,7 +239,7 @@ public class ViewClan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getPoruka());
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_btnDodajClanaActionPerformed
 
     private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
@@ -285,6 +285,7 @@ public class ViewClan extends javax.swing.JFrame {
         postaviVrijednosti();
     }//GEN-LAST:event_lstPodaciValueChanged
 
+    /*
     public class Osoba{
         
         private String ime;
@@ -310,7 +311,7 @@ public class ViewClan extends javax.swing.JFrame {
         
         
         
-    }
+    }*/
     
     /**
      * @param args the command line arguments

@@ -8,7 +8,6 @@ hr\moje\zavrsnirad\controller\ObradaOperater.class
 hr\moje\zavrsnirad\controller\ObradaKolo.class
 hr\moje\zavrsnirad\controller\ObradaRezultat.class
 hr\moje\zavrsnirad\util\ZRadException.class
-hr\moje\zavrsnirad\view\ViewClan$Osoba.class
 hr\moje\zavrsnirad\model\Entitet.class
 hr\moje\zavrsnirad\model\Kolo.class
 hr\moje\zavrsnirad\view\SplashScreen$1.class
