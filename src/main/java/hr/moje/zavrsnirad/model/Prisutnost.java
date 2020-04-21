@@ -40,6 +40,8 @@ public class Prisutnost extends Entitet{
         this.clan = clan;
     }
 
+  
+  
     
 
     

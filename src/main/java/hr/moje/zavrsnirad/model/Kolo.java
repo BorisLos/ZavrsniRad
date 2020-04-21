@@ -26,5 +26,8 @@ public class Kolo extends Entitet{
         this.datum = datum;
     }
     
-    
+    @Override
+    public String toString() {
+        return datum;
+    }
 }
