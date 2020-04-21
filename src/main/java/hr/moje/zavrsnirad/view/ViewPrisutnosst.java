@@ -5,17 +5,44 @@
  */
 package hr.moje.zavrsnirad.view;
 
+import hr.moje.zavrsnirad.controller.ObradaClan;
+import hr.moje.zavrsnirad.controller.ObradaKolo;
+import hr.moje.zavrsnirad.controller.ObradaPrisutnost;
+import hr.moje.zavrsnirad.controller.ObradaRezultat;
+import hr.moje.zavrsnirad.model.Clan;
+import hr.moje.zavrsnirad.model.Kolo;
+import hr.moje.zavrsnirad.model.Prisutnost;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author LasovicaPC
  */
 public class ViewPrisutnosst extends javax.swing.JFrame {
+    
+    private final ObradaClan obradaClan = new ObradaClan();
+    private final ObradaKolo obradaKolo = new ObradaKolo();
+    private final ObradaRezultat obradaRezultat = new ObradaRezultat();
+    private final ObradaPrisutnost obradaPrisutnost = new ObradaPrisutnost();
 
     /**
      * Creates new form ViewPrisutnosst
      */
     public ViewPrisutnosst() {
         initComponents();
+        ucitaj();
+    }
+    
+    private void ucitaj() {
+        DefaultListModel<Clan> modelClan = new DefaultListModel<>();
+        obradaClan.getPodaci().forEach(s -> modelClan.addElement(s));
+        lstClan.setModel(modelClan);
+        
+        DefaultListModel<Kolo> modelKolo = new DefaultListModel<>();
+        obradaKolo.getPodaci().forEach(s -> modelKolo.addElement(s));
+        lstKolo.setModel(modelKolo);
     }
 
     /**
@@ -28,16 +55,15 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lstClan = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        lstKolo = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        lstClanoviKola = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -47,21 +73,24 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lstClan);
 
         jButton1.setText("Traži");
 
         jLabel1.setText("Članovi");
         jLabel1.setToolTipText("");
 
-        jList2.setToolTipText("");
-        jScrollPane2.setViewportView(jList2);
+        lstKolo.setToolTipText("");
+        lstKolo.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstKoloValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(lstKolo);
 
         jLabel2.setText("Kolo");
 
-        jButton2.setText("Prikaži sudionike kola");
-
-        jScrollPane3.setViewportView(jList3);
+        jScrollPane3.setViewportView(lstClanoviKola);
 
         jLabel3.setText("Upis rezultata");
 
@@ -104,9 +133,7 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                                     .addComponent(jButton3)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(23, 23, 23))
         );
@@ -126,11 +153,8 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(jLabel3)
@@ -138,7 +162,7 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(36, 36, 36)
                                 .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,6 +177,25 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lstKoloValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstKoloValueChanged
+        // TODO add your handfasddling code here:
+        Kolo odabranoKolo = lstKolo.getSelectedValue();
+        List<Integer> svaPrisustvaKola = obradaPrisutnost.getPodaci().stream()
+                                            .filter(p -> p.getKolo().getSifra().equals(odabranoKolo.getSifra()))
+                                            .map(p -> p.getSifra())
+                                            .collect(Collectors.toList());
+        
+        List<Clan> clanoviKola = obradaClan.getPodaci().stream()
+                                    .filter(c -> svaPrisustvaKola.contains(c.getSifra()))
+                                    .collect(Collectors.toList());
+        
+        DefaultListModel<Clan> modelClanKolo = new DefaultListModel<>();
+
+        clanoviKola.forEach(c -> modelClanKolo.addElement(c));
+        lstClanoviKola.setModel(modelClanKolo);
+        lstClanoviKola.repaint();
+    }//GEN-LAST:event_lstKoloValueChanged
 
     /**
      * @param args the command line arguments
@@ -191,15 +234,11 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -207,5 +246,8 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JList<Clan> lstClan;
+    private javax.swing.JList<Clan> lstClanoviKola;
+    private javax.swing.JList<Kolo> lstKolo;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class ViewClan extends javax.swing.JFrame {
     
-    private final ObradaClan obrada;
+    private final ObradaClan obrada = new ObradaClan();
     
 
     /**
@@ -26,7 +26,6 @@ public class ViewClan extends javax.swing.JFrame {
      */
     public ViewClan() {
         initComponents();
-        obrada=new ObradaClan();
         ucitaj();
     }
     private void ucitaj() {

@@ -45,7 +45,7 @@ public class ObradaPrisutnost extends Obrada<Prisutnost>{
 
     @Override
     public List<Prisutnost> getPodaci() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return session.createQuery("from Prisutnost").list();
     }
     
     
