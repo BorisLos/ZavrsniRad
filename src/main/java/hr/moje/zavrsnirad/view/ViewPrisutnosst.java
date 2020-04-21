@@ -90,6 +90,11 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
 
         jLabel2.setText("Kolo");
 
+        lstClanoviKola.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstClanoviKolaValueChanged(evt);
+            }
+        });
         jScrollPane3.setViewportView(lstClanoviKola);
 
         jLabel3.setText("Upis rezultata");
@@ -196,6 +201,14 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         lstClanoviKola.setModel(modelClanKolo);
         lstClanoviKola.repaint();
     }//GEN-LAST:event_lstKoloValueChanged
+
+    private void lstClanoviKolaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClanoviKolaValueChanged
+        // TODO add your handling code here:
+        
+        Clan odabraniClan = lstClan.getSelectedValue();
+        
+        
+    }//GEN-LAST:event_lstClanoviKolaValueChanged
 
     /**
      * @param args the command line arguments
