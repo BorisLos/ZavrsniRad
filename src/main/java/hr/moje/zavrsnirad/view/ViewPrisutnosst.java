@@ -329,7 +329,7 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         
         List<Integer> svaPrisustvaKola = obradaPrisutnost.getPodaci().stream()
                                             .filter(p -> p.getKolo().getSifra().equals(kolo.getSifra()))
-                                            .map(p -> p.getSifra())
+                                            .map(p -> p.getClan().getSifra())
                                             .collect(Collectors.toList());
         
         List<Clan> clanoviKola = obradaClan.getPodaci().stream()
