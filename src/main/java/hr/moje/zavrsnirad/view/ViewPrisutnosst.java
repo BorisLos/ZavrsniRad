@@ -69,7 +69,7 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstClan = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtTrazilica = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstKolo = new javax.swing.JList<>();
@@ -97,6 +97,17 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         jScrollPane1.setViewportView(lstClan);
 
         jButton1.setText("Traži");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        txtTrazilica.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtTrazilicaPropertyChange(evt);
+            }
+        });
 
         jLabel1.setText("Članovi");
         jLabel1.setToolTipText("");
@@ -162,7 +173,7 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
+                        .addComponent(txtTrazilica, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -199,7 +210,7 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTrazilica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
@@ -347,6 +358,26 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRezultatActionPerformed
 
+    private void txtTrazilicaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtTrazilicaPropertyChange
+        // TODO add your handling code here:
+        
+        System.out.println("Sada je:" + txtTrazilica.getText());
+    }//GEN-LAST:event_txtTrazilicaPropertyChange
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        String query = txtTrazilica.getText();
+        
+        DefaultListModel<Clan> modelClan = new DefaultListModel<>();
+        obradaClan.getPodaci().stream()
+                .filter(c -> String.format("%s %s", c.getIme(), c.getPrezime()).contains(query))
+                .forEach(c -> modelClan.addElement(c));
+        
+        lstClan.setModel(modelClan);
+        lstClan.repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -395,7 +426,6 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JList<Clan> lstClan;
     private javax.swing.JList<Clan> lstClanoviKola;
     private javax.swing.JList<Duzina> lstDuzina;
@@ -403,5 +433,6 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
     private javax.swing.JTextField txtIme;
     private javax.swing.JTextField txtPrezime;
     private javax.swing.JTextField txtRezultat;
+    private javax.swing.JTextField txtTrazilica;
     // End of variables declaration//GEN-END:variables
 }
