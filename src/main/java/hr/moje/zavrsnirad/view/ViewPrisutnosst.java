@@ -6,15 +6,19 @@
 package hr.moje.zavrsnirad.view;
 
 import hr.moje.zavrsnirad.controller.ObradaClan;
+import hr.moje.zavrsnirad.controller.ObradaDuzina;
 import hr.moje.zavrsnirad.controller.ObradaKolo;
 import hr.moje.zavrsnirad.controller.ObradaPrisutnost;
 import hr.moje.zavrsnirad.controller.ObradaRezultat;
 import hr.moje.zavrsnirad.model.Clan;
+import hr.moje.zavrsnirad.model.Duzina;
 import hr.moje.zavrsnirad.model.Kolo;
 import hr.moje.zavrsnirad.model.Prisutnost;
+import hr.moje.zavrsnirad.model.Rezultat;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +30,7 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
     private final ObradaKolo obradaKolo = new ObradaKolo();
     private final ObradaRezultat obradaRezultat = new ObradaRezultat();
     private final ObradaPrisutnost obradaPrisutnost = new ObradaPrisutnost();
+    private final ObradaDuzina obradaDuzina = new ObradaDuzina();
 
     /**
      * Creates new form ViewPrisutnosst
@@ -43,6 +48,13 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         DefaultListModel<Kolo> modelKolo = new DefaultListModel<>();
         obradaKolo.getPodaci().forEach(s -> modelKolo.addElement(s));
         lstKolo.setModel(modelKolo);
+        
+        DefaultListModel<Duzina> modelDuzina = new DefaultListModel<>();
+        obradaDuzina.getPodaci().forEach(s -> modelDuzina.addElement(s));
+        lstDuzina.setModel(modelDuzina);
+        
+        txtIme.setEditable(false);
+        txtPrezime.setEditable(false);
     }
 
     /**
@@ -65,14 +77,22 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         lstClanoviKola = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtIme = new javax.swing.JTextField();
+        txtPrezime = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        txtRezultat = new javax.swing.JTextField();
+        btnUnesi = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstDuzina = new javax.swing.JList<>();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        lstClan.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstClanValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstClan);
 
         jButton1.setText("Traži");
@@ -99,15 +119,30 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
 
         jLabel3.setText("Upis rezultata");
 
-        jTextField2.setText("Ime");
+        txtIme.setText("Ime");
 
-        jTextField3.setText("Prezime");
+        txtPrezime.setText("Prezime");
 
         jLabel4.setText("Rezultat");
 
-        jTextField4.setText("     :   :");
+        txtRezultat.setText("     :   :");
 
-        jButton3.setText("Unesi");
+        btnUnesi.setText("Unesi");
+        btnUnesi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnesiActionPerformed(evt);
+            }
+        });
+
+        lstDuzina.setToolTipText("");
+        lstDuzina.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstDuzinaValueChanged(evt);
+            }
+        });
+        jScrollPane4.setViewportView(lstDuzina);
+
+        jLabel5.setText("Duzina");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,25 +156,30 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 150, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(txtRezultat, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnUnesi))))))
                 .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
@@ -148,7 +188,8 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -161,21 +202,24 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(19, 19, 19)
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27)
                                 .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRezultat, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)))))
+                                .addComponent(btnUnesi)))))
                 .addContainerGap())
         );
 
@@ -196,6 +240,8 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
                                     .collect(Collectors.toList());
         
         DefaultListModel<Clan> modelClanKolo = new DefaultListModel<>();
+        
+        obradaKolo.setEntitet(odabranoKolo);
 
         clanoviKola.forEach(c -> modelClanKolo.addElement(c));
         lstClanoviKola.setModel(modelClanKolo);
@@ -203,12 +249,93 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
     }//GEN-LAST:event_lstKoloValueChanged
 
     private void lstClanoviKolaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClanoviKolaValueChanged
+        
+        Clan odabraniClan = lstClanoviKola.getSelectedValue();
+        
+        txtIme.setText(odabraniClan.getIme());
+        txtPrezime.setText(odabraniClan.getPrezime());
+        
+        obradaClan.setEntitet(odabraniClan);
+    }//GEN-LAST:event_lstClanoviKolaValueChanged
+
+    private void lstDuzinaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDuzinaValueChanged
+        // TODO add your handling code here:
+        
+        Duzina odabranaDuzina = lstDuzina.getSelectedValue();
+        
+        if (odabranaDuzina == null) {
+            JOptionPane.showMessageDialog(null, "Greska pri dohvacanju duzine");
+        }
+        
+        obradaDuzina.setEntitet(odabranaDuzina);
+    }//GEN-LAST:event_lstDuzinaValueChanged
+
+    private void btnUnesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnesiActionPerformed
+        // TODO add your handling code here:
+        
+        if (obradaClan.getEntitet() == null || obradaDuzina.getEntitet() == null || obradaKolo.getEntitet() == null) {
+            JOptionPane.showMessageDialog(null, "Clan kola, kolo i duzina moraju biti odabrani");
+            return;
+        }
+        
+        if (txtRezultat.getText() == null || txtRezultat.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Vrijeme treba biti unešeno");
+            return;
+        }
+        
+        obradaRezultat.setEntitet(new Rezultat());
+        obradaRezultat.getEntitet().setClan(obradaClan.getEntitet());
+        obradaRezultat.getEntitet().setDuzina(obradaDuzina.getEntitet());
+        obradaRezultat.getEntitet().setKolo(obradaKolo.getEntitet());
+        obradaRezultat.getEntitet().setVrijeme(txtRezultat.getText());
+        
+        try {
+            obradaRezultat.create();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+         JOptionPane.showMessageDialog(null, "Rezultat unešen");
+    }//GEN-LAST:event_btnUnesiActionPerformed
+
+    private void lstClanValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClanValueChanged
         // TODO add your handling code here:
         
         Clan odabraniClan = lstClan.getSelectedValue();
         
+        obradaClan.setEntitet(odabraniClan);
         
-    }//GEN-LAST:event_lstClanoviKolaValueChanged
+        if (obradaKolo.getEntitet() == null) {
+            JOptionPane.showMessageDialog(null, "Potrebno je odabrati kolo");
+        }
+        
+        Kolo kolo = obradaKolo.getEntitet();
+        
+        obradaPrisutnost.setEntitet(new Prisutnost());
+        obradaPrisutnost.getEntitet().setClan(odabraniClan);
+        obradaPrisutnost.getEntitet().setKolo(kolo);
+        
+        try {
+            obradaPrisutnost.create();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+        List<Integer> svaPrisustvaKola = obradaPrisutnost.getPodaci().stream()
+                                            .filter(p -> p.getKolo().getSifra().equals(kolo.getSifra()))
+                                            .map(p -> p.getSifra())
+                                            .collect(Collectors.toList());
+        
+        List<Clan> clanoviKola = obradaClan.getPodaci().stream()
+                                    .filter(c -> svaPrisustvaKola.contains(c.getSifra()))
+                                    .collect(Collectors.toList());
+        
+        DefaultListModel<Clan> modelClanKolo = new DefaultListModel<>();
+
+        clanoviKola.forEach(c -> modelClanKolo.addElement(c));
+        lstClanoviKola.setModel(modelClanKolo);
+        lstClanoviKola.repaint();
+    }//GEN-LAST:event_lstClanValueChanged
 
     /**
      * @param args the command line arguments
@@ -246,21 +373,24 @@ public class ViewPrisutnosst extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnUnesi;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JList<Clan> lstClan;
     private javax.swing.JList<Clan> lstClanoviKola;
+    private javax.swing.JList<Duzina> lstDuzina;
     private javax.swing.JList<Kolo> lstKolo;
+    private javax.swing.JTextField txtIme;
+    private javax.swing.JTextField txtPrezime;
+    private javax.swing.JTextField txtRezultat;
     // End of variables declaration//GEN-END:variables
 }
