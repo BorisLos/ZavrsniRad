@@ -5,19 +5,46 @@
  */
 package hr.moje.zavrsnirad.view;
 
+import hr.moje.zavrsnirad.controller.ObradaClan;
+import hr.moje.zavrsnirad.controller.ObradaDuzina;
+import hr.moje.zavrsnirad.controller.ObradaKolo;
+import hr.moje.zavrsnirad.controller.ObradaPrisutnost;
+import hr.moje.zavrsnirad.controller.ObradaRezultat;
+import hr.moje.zavrsnirad.model.Clan;
+import hr.moje.zavrsnirad.model.Duzina;
+import hr.moje.zavrsnirad.model.Kolo;
+import hr.moje.zavrsnirad.model.Rezultat;
+import hr.moje.zavrsnirad.util.Pomocno;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author LasovicaPC
  */
 public class ViewRezultat extends javax.swing.JFrame {
 
+    private final ObradaKolo obradaKolo = new ObradaKolo();
+    private final ObradaRezultat obradaRezultat = new ObradaRezultat();
+    private final ObradaDuzina obradaDuzina = new ObradaDuzina();
     /**
      * Creates new form ViewRezultat
      */
     public ViewRezultat() {
         initComponents();
+        ucitaj();
     }
-
+    
+    private void ucitaj() {
+        DefaultListModel<Kolo> modelKolo = new DefaultListModel<>();
+        obradaKolo.getPodaci().forEach(s -> modelKolo.addElement(s));
+        lstKolo.setModel(modelKolo);
+        
+        DefaultListModel<Duzina> modelDuzina = new DefaultListModel<>();
+        obradaDuzina.getPodaci().forEach(s -> modelDuzina.addElement(s));
+        lstDuzina.setModel(modelDuzina);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,27 +56,37 @@ public class ViewRezultat extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lstKolo = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        lstDuzina = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        lstPoredak = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Odaberi kolo lige");
 
-        jScrollPane1.setViewportView(jList1);
+        lstKolo.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstKoloValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstKolo);
 
         jLabel2.setText("Odaberi dužinu");
 
-        jScrollPane2.setViewportView(jList2);
+        lstDuzina.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstDuzinaValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(lstDuzina);
 
         jLabel3.setText("Ukupni poredak");
 
-        jScrollPane3.setViewportView(jList3);
+        jScrollPane3.setViewportView(lstPoredak);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,6 +132,62 @@ public class ViewRezultat extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lstKoloValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstKoloValueChanged
+        // TODO add your handling code here:
+        
+        Kolo odabranoKolo = lstKolo.getSelectedValue();
+        
+        obradaKolo.setEntitet(odabranoKolo);
+        
+        if (odabranoKolo == null) {
+            return;
+        }
+        
+        Duzina odabranaDuzina = obradaDuzina.getEntitet();
+        
+        if (odabranaDuzina == null) {
+            return;
+        }
+        
+        List<Rezultat> rezultati = obradaRezultat.getPodaci().stream()
+                                    .filter(r -> r.getDuzina().equals(odabranaDuzina))
+                                    .filter(r -> r.getKolo().equals(odabranoKolo))
+                                    .collect(Collectors.toList());
+        
+        DefaultListModel<String> modelRezultati = new DefaultListModel<>();
+        Pomocno.formatirajRezultateZaListu(rezultati).forEach(s -> modelRezultati.addElement(s));
+        lstPoredak.setModel(modelRezultati);
+        lstPoredak.repaint();
+    }//GEN-LAST:event_lstKoloValueChanged
+
+    private void lstDuzinaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstDuzinaValueChanged
+        // TODO add your handling code here:
+        
+        Duzina odabranaDuzina = lstDuzina.getSelectedValue();
+        
+        obradaDuzina.setEntitet(odabranaDuzina);
+        
+        if (odabranaDuzina == null) {
+            return;
+        }
+        
+        Kolo odabranoKolo = obradaKolo.getEntitet();
+        
+        if (odabranoKolo == null) {
+            return;
+        }
+        
+        List<Rezultat> rezultati = obradaRezultat.getPodaci().stream()
+                                    .filter(r -> r.getDuzina().getSifra().equals(odabranaDuzina.getSifra()))
+                                    .filter(r -> r.getKolo().getSifra().equals(odabranoKolo.getSifra()))
+                                    .collect(Collectors.toList());
+        
+        DefaultListModel<String> modelRezultati = new DefaultListModel<>();
+        Pomocno.formatirajRezultateZaListu(rezultati).forEach(s -> modelRezultati.addElement(s));
+        lstPoredak.setModel(modelRezultati);
+        lstPoredak.repaint();
+    }//GEN-LAST:event_lstDuzinaValueChanged
+
     /**
      * @param args the command line arguments
      */
@@ -134,11 +227,11 @@ public class ViewRezultat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<Duzina> lstDuzina;
+    private javax.swing.JList<Kolo> lstKolo;
+    private javax.swing.JList<String> lstPoredak;
     // End of variables declaration//GEN-END:variables
 }
