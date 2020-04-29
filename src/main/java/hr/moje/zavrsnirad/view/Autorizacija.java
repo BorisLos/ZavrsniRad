@@ -47,7 +47,7 @@ public class Autorizacija extends javax.swing.JFrame {
         txtEmail.setText("jozo@gmail.com");
         txtEmail.setToolTipText("");
 
-        jLabel2.setText("email");
+        jLabel2.setText("lozinka");
         jLabel2.setToolTipText("");
 
         btnRegistracija.setText("Registriraj");

@@ -71,7 +71,7 @@ public class Izbornik extends javax.swing.JFrame {
 
         jMenuBar1.add(jmAplikacija);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Odabir");
 
         jMenuItem2.setText("Clanovi");
         jMenuItem2.setToolTipText("");
